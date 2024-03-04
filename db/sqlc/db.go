@@ -7,6 +7,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	_ "github.com/golang/mock/mockgen/model"
 )
 
 type DBTX interface {
