@@ -1,5 +1,13 @@
 package api
 
+import (
+	db "simplebank/db/sqlc"
+	"simplebank/util"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
+
 // import (
 // 	"bytes"
 // 	"database/sql"
@@ -316,19 +324,19 @@ package api
 // 	}
 // }
 
-// func randomUser(t *testing.T) (user db.User, password string) {
-// 	password = util.RandomString(6)
-// 	hashedPassword, err := util.HashPassword(password)
-// 	require.NoError(t, err)
+func randomUser(t *testing.T) (user db.User, password string) {
+	password = util.RandomString(6)
+	hashedPassword, err := util.HashPassword(password)
+	require.NoError(t, err)
 
-// 	user = db.User{
-// 		Username:       util.RandomOwner(),
-// 		HashedPassword: hashedPassword,
-// 		FullName:       util.RandomOwner(),
-// 		Email:          util.RandomEmail(),
-// 	}
-// 	return
-// }
+	user = db.User{
+		Username:       util.RandomOwner(),
+		HashedPassword: hashedPassword,
+		FullName:       util.RandomOwner(),
+		Email:          util.RandomEmail(),
+	}
+	return
+}
 
 // func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, user db.User) {
 // 	data, err := io.ReadAll(body)
