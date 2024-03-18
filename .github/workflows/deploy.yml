@@ -25,6 +25,9 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Load secrets and save to dev.env
+      run: aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:eu-central-1:654654225050:secret:simple_bank-Tu6Wip --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > dev.env
+
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
