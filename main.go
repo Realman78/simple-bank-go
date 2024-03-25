@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"log"
 	"net"
 	"net/http"
@@ -58,6 +59,9 @@ func runGrpcServer(config util.Config, store db.Store) {
 	}
 }
 
+//go:embed frontend/*
+var staticFiles embed.FS
+
 func runGatewayServer(config util.Config, store db.Store) {
 	server, err := gapi.NewServer(config, store)
 	if err != nil {
@@ -85,6 +89,13 @@ func runGatewayServer(config util.Config, store db.Store) {
 
 	mux := http.NewServeMux()
 	mux.Handle("/", grpcMux)
+
+	// fs := http.FS(staticFiles)
+
+	// fileServer := http.FileServer(fs)
+
+	// // Serve static files.
+	// mux.Handle("/", fileServer)
 
 	listener, err := net.Listen("tcp", config.HTTPServerAddress)
 	if err != nil {
