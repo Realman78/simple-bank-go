@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	RedisAddress         string        `mapstructure:"REDIS_ADDRESS"`
 	Env                  string        `mapstructure:"ENV"`
 	DBDriver             string        `mapstructure:"DB_DRIVER"`
 	DBSource             string        `mapstructure:"DB_SOURCE"`
